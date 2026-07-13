@@ -1,0 +1,15 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef4ff" />
+      <stop offset="100%" stop-color="#eef0ff" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)" />
+  <path d="M40,250 L360,250" stroke="rgba(0,0,0,.15)" stroke-width="3" />
+  <path d="M40,250 Q200,10 360,250" stroke="#6b6bff" stroke-width="6" stroke-dasharray="3 12" stroke-linecap="round" fill="none" />
+  <circle cx="200" cy="60" r="13" fill="#a86bff" />
+  <path d="M40,250 L100,185" stroke="#28c840" stroke-width="5" />
+  <circle cx="40" cy="250" r="9" fill="#1d1d1f" />
+  <text x="20" y="280" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="rgba(0,0,0,.32)">placeholder · projectile</text>
+</svg>
