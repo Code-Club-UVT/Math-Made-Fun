@@ -1,0 +1,29 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #e5e4e7;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.controlRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.value {
+  color: #6b6b70;
+  font-family: ui-monospace, monospace;
+}
+
+.slider {
+  width: 100%;
+}
