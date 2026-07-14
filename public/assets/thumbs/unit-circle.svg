@@ -1,0 +1,17 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef0ff" />
+      <stop offset="100%" stop-color="#f7eeff" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)" />
+  <line x1="60" y1="150" x2="340" y2="150" stroke="rgba(0,0,0,.12)" stroke-width="3" />
+  <line x1="200" y1="30" x2="200" y2="270" stroke="rgba(0,0,0,.12)" stroke-width="3" />
+  <circle cx="200" cy="150" r="98" stroke="#6b6bff" stroke-width="5" fill="none" />
+  <path d="M200,150 L270,72" stroke="#a86bff" stroke-width="5" />
+  <line x1="270" y1="72" x2="270" y2="150" stroke="#28c840" stroke-width="4" stroke-dasharray="7 6" />
+  <line x1="200" y1="150" x2="270" y2="150" stroke="#ff5f57" stroke-width="4" />
+  <circle cx="270" cy="72" r="9" fill="#a86bff" />
+  <text x="20" y="280" font-family="ui-monospace,Menlo,monospace" font-size="13" fill="rgba(0,0,0,.32)">placeholder · unit-circle</text>
+</svg>
