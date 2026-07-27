@@ -24,8 +24,8 @@ mathmadefun/
 │   │   └── ControlPanel.jsx           (generic slider builder)
 │   ├── pages/
 │   │   ├── Landing.jsx                 (marketing/home page)
-│   │   ├── Dashboard.jsx
-│   │   └── SimPage.jsx
+│   │   ├── SimsPage.jsx                 (sim gallery grid, /sims)
+│   │   └── SimPage.jsx                  (individual sim, /sims/:id)
 │   └── sims/                          ← math student owns these
 │       ├── vectors.js
 │       ├── inclined-plane.js
@@ -66,8 +66,14 @@ shape. If it needs to change, stop and confirm before touching both sides.
 ## Routing
 React Router v6. Routes:
 - `/` — Landing page (marketing/home, no auth)
-- `/dashboard` — sim gallery
-- `/sim/:id` — individual simulation
+- `/sims` — sim gallery (collection)
+- `/sims/:id` — individual simulation (member of the collection above)
+
+`/sims` and `/sims/:id` are flat sibling routes, not nested React Router
+routes with `<Outlet/>` — the two pages share no persistent UI, so there's
+nothing for a shared layout to buy. The URL hierarchy alone reflects the
+collection/member relationship. Keep this pairing (plural collection root +
+`/:id` member) if new top-level resources are ever added.
 
 ## Simulation catalog
 MVP (Weeks 2–4, in this order):
@@ -93,7 +99,7 @@ Backlog (Week 5+, math student picks):
 - camelCase JS, PascalCase components, kebab-case filenames under `/sims`
 - One sim = one file in `/sims`, id matches catalog above
 - No inline styles; use CSS modules
-- Sim metadata (id, title, thumbnail) lives as a static array in Dashboard.jsx
+- Sim metadata (id, title, thumbnail) lives as a static array in SimsPage.jsx
 
 ## Known risk areas
 1. p5 instance cleanup — always call `destroy()` in useEffect return to

@@ -5,6 +5,18 @@
   padding: 32px 24px;
 }
 
+.back {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #1d1d1f;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
 /* sim card grid */
 .grid {
   display: grid;

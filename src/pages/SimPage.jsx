@@ -93,7 +93,7 @@ export default function SimPage() {
 
   return (
     <div className={styles.page}>
-      <Link to="/dashboard" className={styles.back}>
+      <Link to="/sims" className={styles.back}>
         ← Back to gallery
       </Link>
 
