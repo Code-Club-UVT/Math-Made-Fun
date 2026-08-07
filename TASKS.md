@@ -30,8 +30,10 @@ One task at a time — stop and check off before moving on.
       below); replaces the placeholder SVG, no code changes needed
 
 ## Week 3 — More Sims
-- [ ] W3-1 (CS) Integrate `inclined-plane` and `projectile` as delivered
-- [ ] (Math) Build `inclined-plane`, `projectile`
+- [x] W3-1 (CS) Integrate `inclined-plane` and `projectile` as delivered —
+      both load via `/sims/:id`; added optional `step` to the controls
+      contract so μ can move in 0.02 increments
+- [x] (Math) Build `inclined-plane`, `projectile`
 - [ ] (Math) Drop `inclined-plane.png` and `projectile.png` thumbnails in
       `public/assets/thumbs/`
 
@@ -49,6 +51,13 @@ One task at a time — stop and check off before moving on.
 - [ ] (Math) Pick + build 1–2 backlog sims, add tooltips, set good defaults,
       drop matching thumbnails in `public/assets/thumbs/`
 
+## Week 6 — Bug Pass + Demo
+- [ ] W6-1 (CS) Pair-test: each person walks through the other's work fresh,
+      log all issues
+- [ ] W6-2 (CS) Fix triaged bugs
+- [ ] W6-3 (CS) README — `npm run dev`, sim catalog overview
+- [ ] BOTH joint demo dry run
+
 ## Thumbnail workflow (ongoing, owned by math student)
 Each MVP/backlog sim currently has a placeholder SVG in
 `public/assets/thumbs/<id>.svg` (generated, on-brand, clearly watermarked
@@ -65,10 +74,3 @@ Each MVP/backlog sim currently has a placeholder SVG in
    file extension changes.
 No new tooling required — this is just a file drop plus a one-line path
 change, so it doesn't block on the CS side of the project.
-
-## Week 6 — Bug Pass + Demo
-- [ ] W6-1 (CS) Pair-test: each person walks through the other's work fresh,
-      log all issues
-- [ ] W6-2 (CS) Fix triaged bugs
-- [ ] W6-3 (CS) README — `npm run dev`, sim catalog overview
-- [ ] BOTH joint demo dry run

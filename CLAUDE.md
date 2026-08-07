@@ -27,6 +27,7 @@ mathmadefun/
 │   │   ├── SimsPage.jsx                 (sim gallery grid, /sims)
 │   │   └── SimPage.jsx                  (individual sim, /sims/:id)
 │   └── sims/                          ← math student owns these
+│       ├── lib/draw.js                 (shared p5 drawing helpers)
 │       ├── vectors.js
 │       ├── inclined-plane.js
 │       ├── projectile.js
@@ -53,7 +54,12 @@ export default {
   title: "Vector Addition",
   thumbnail: "/assets/thumbs/vectors.png",
   controls: [
-    { id: "v1x", label: "Vector 1 X", type: "range", min: -10, max: 10, default: 3 }
+    // `step` is optional and defaults to 1 — omit it for whole-number controls.
+    { id: "v1x", label: "Vector 1 X", type: "range", min: -10, max: 10, default: 3 },
+    { id: "mu", label: "Friction μ", type: "range", min: 0, max: 0.8, step: 0.02, default: 0.18 },
+    // type "toggle" is a boolean, rendered as one button reading
+    // "Play <label>" / "Pause <label>". Animated sims use it for playback.
+    { id: "playing", label: "animation", type: "toggle", default: true }
   ],
   init(canvasNode, controlValues) {},  // receives DOM node from ref
   update(controlValues) {},            // called on slider change
@@ -62,6 +68,8 @@ export default {
 ```
 `SimCard.jsx`, `ControlPanel.jsx`, and `SimPage.jsx` are generic against this
 shape. If it needs to change, stop and confirm before touching both sides.
+
+There is no `unit` field — put units in the `label` text ("Mass (kg)").
 
 ## Routing
 React Router v6. Routes:
@@ -98,6 +106,22 @@ Backlog (Week 5+, math student picks):
 ## Conventions
 - camelCase JS, PascalCase components, kebab-case filenames under `/sims`
 - One sim = one file in `/sims`, id matches catalog above
+- Sims may animate by leaving p5's draw loop running (`inclined-plane`,
+  `projectile`); ones with no time dimension stay on `noLoop()` (`vectors`).
+  Animating sims must: advance physics with `stepSeconds(p)` from
+  `/sims/lib/anim.js` rather than raw `deltaTime`, keep animation state on
+  the module and clear it in `destroy()`, expose a `toggle` control for
+  playback whose `default` is `!prefersReducedMotion()`, and **never reset
+  that state from `update()`** — `update()` fires continuously while a
+  slider is dragged, so resetting there freezes the animation for the whole
+  drag.
+- Pausing gates *time advancing*, not drawing — the loop keeps running so
+  sliders stay live while paused. Don't "optimise" this into `noLoop()`;
+  that would freeze the canvas against slider input too.
+- Shared drawing helpers live in `/sims/lib/` — nested on purpose, since
+  `SimPage.jsx` globs `../sims/*.js` with a single-segment wildcard that
+  never descends into subfolders. Never put a non-sim `.js` file directly
+  in `/sims`; it would be loaded as if it were a simulation.
 - No inline styles; use CSS modules
 - Sim metadata (id, title, thumbnail) lives as a static array in SimsPage.jsx
 
@@ -105,3 +129,7 @@ Backlog (Week 5+, math student picks):
 1. p5 instance cleanup — always call `destroy()` in useEffect return to
    prevent multiple sketches stacking on route change.
 2. Sim contract changes mid-project break both sides simultaneously — freeze it.
+3. Animated sims must clamp their frame delta. requestAnimationFrame stops
+   firing in a hidden tab, so the first frame back reports the entire time
+   away; unclamped that single step teleports the simulation. `stepSeconds()`
+   caps it — don't bypass it.

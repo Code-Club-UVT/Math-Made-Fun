@@ -27,3 +27,32 @@
 .slider {
   width: 100%;
 }
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+  color: #1d1d1f;
+  background: #f4f4f6;
+  border: 1px solid #e5e4e7;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  background: #ebebef;
+}
+
+.toggle:active {
+  background: #e2e2e8;
+}
+
+.toggle:focus-visible {
+  outline: 2px solid #4361ee;
+  outline-offset: 2px;
+}

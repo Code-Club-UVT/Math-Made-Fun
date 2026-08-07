@@ -12,6 +12,7 @@ function RangeControl({ control, value, onChange }) {
         type="range"
         min={control.min}
         max={control.max}
+        step={control.step ?? 1}
         value={value}
         onChange={(e) => onChange(control.id, Number(e.target.value))}
         className={styles.slider}
@@ -20,10 +21,27 @@ function RangeControl({ control, value, onChange }) {
   );
 }
 
+// Boolean control, rendered as a single toggling button. Used for playback
+// (play/pause) on the animated sims; `value` is true when running.
+function ToggleControl({ control, value, onChange }) {
+  return (
+    <button
+      type="button"
+      id={control.id}
+      onClick={() => onChange(control.id, !value)}
+      aria-pressed={value}
+      className={styles.toggle}
+    >
+      {value ? `Pause ${control.label}` : `Play ${control.label}`}
+    </button>
+  );
+}
+
 // Add new control-type renderers here as the contract grows; never edit
 // the render loop below to special-case a type.
 const CONTROL_RENDERERS = {
   range: RangeControl,
+  toggle: ToggleControl,
 };
 
 export default function ControlPanel({ controls, values, onChange }) {

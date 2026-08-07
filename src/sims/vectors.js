@@ -2,6 +2,7 @@
 // Plain JS, no JSX. Exports the frozen contract from CLAUDE.md; p5 runs in
 // instance mode so its canvas can be torn down cleanly on route change.
 import p5 from "p5";
+import { drawArrow, drawLabel } from "./lib/draw.js";
 
 const SIZE = 480;
 const SCALE = 9; // pixels per unit, keeps the max sum vector (20,20) on-canvas
@@ -25,33 +26,6 @@ function drawGrid(p) {
   p.strokeWeight(1.5);
   p.line(0, SIZE / 2, SIZE, SIZE / 2);
   p.line(SIZE / 2, 0, SIZE / 2, SIZE);
-}
-
-function drawArrow(p, from, to, color, { dashed = false, weight = 2.5 } = {}) {
-  p.push();
-  p.stroke(color);
-  p.strokeWeight(weight);
-  if (dashed) p.drawingContext.setLineDash([6, 5]);
-  p.line(from.x, from.y, to.x, to.y);
-  p.drawingContext.setLineDash([]);
-
-  const angle = Math.atan2(to.y - from.y, to.x - from.x);
-  const headLen = 10;
-  p.noStroke();
-  p.fill(color);
-  p.translate(to.x, to.y);
-  p.rotate(angle);
-  p.triangle(0, 0, -headLen, headLen / 2.2, -headLen, -headLen / 2.2);
-  p.pop();
-}
-
-function drawLabel(p, text, pos, color) {
-  p.push();
-  p.noStroke();
-  p.fill(color);
-  p.textSize(13);
-  p.text(text, pos.x + 8, pos.y - 8);
-  p.pop();
 }
 
 function drawVectors(p, values) {
