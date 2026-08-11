@@ -1,50 +1,249 @@
+/* ============================================================
+   Sim workspace. Deliberately the quietest page in the app —
+   the canvas is the subject, so the chrome stays hairline and
+   the only colour comes from the drawing itself.
+   ============================================================ */
+
+/* Top padding is 0 so the shared header sits at the same height as it does on
+   the landing page — the strip should not appear to shift between routes. */
 .page {
-  max-width: 960px;
+  max-width: var(--shell);
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 0 var(--pitch) calc(var(--pitch) * 3);
 }
 
 .back {
   display: inline-block;
-  margin-bottom: 16px;
-  color: #1d1d1f;
+  margin-top: calc(var(--pitch) * 0.8);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  color: var(--graphite);
   text-decoration: none;
-  font-size: 14px;
 }
 
 .back:hover {
-  text-decoration: underline;
+  color: var(--vector);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: calc(var(--pitch) * 0.9) 0 calc(var(--pitch) * 0.9);
+  margin-bottom: var(--pitch);
+  border-bottom: 1px solid var(--rule);
+}
+
+.tag {
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--vector);
 }
 
 .title {
-  margin: 0 0 24px;
+  font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+  font-weight: 800;
+  font-variation-settings: "wdth" 120;
+  letter-spacing: -0.03em;
+}
+
+.headDesc {
+  max-width: 42ch;
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--graphite);
 }
 
 .layout {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 268px;
+  gap: var(--pitch);
   align-items: start;
 }
 
 .canvasWrap {
   position: relative;
-  min-height: 400px;
-  border: 1px solid #e5e4e7;
-  border-radius: 8px;
-  background: #fbfbfd;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 360px;
+  padding: 14px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
 }
 
 .canvas {
   width: 100%;
-  height: 100%;
+}
+
+/* p5 writes width/height directly onto the canvas element's style attribute
+   (createCanvas -> elt.style.width = "560px"), and an inline style beats a
+   class rule, so !important is the only way to reach it from here. Without
+   this the canvas keeps its fixed pixel width and pushes a horizontal
+   scrollbar onto the page on narrow screens.
+   max-width rather than width so the canvas only ever scales *down* —
+   stretching a 560px drawing across an 800px column would just blur it. */
+.canvas canvas {
+  display: block;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 auto;
 }
 
 .status {
   position: absolute;
-  color: #6b6b70;
-  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--graphite);
+  text-align: center;
+}
+
+.statusTitle {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.statusLink {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--vector);
+}
+
+/* ---------- explanation ---------- */
+
+.theory {
+  margin-top: calc(var(--pitch) * 1.6);
+  padding-top: calc(var(--pitch) * 1.2);
+  border-top: 1px solid var(--rule);
+}
+
+.theoryEyebrow {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--vector);
+}
+
+.theoryTitle {
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  font-weight: 700;
+  font-variation-settings: "wdth" 114;
+}
+
+.theoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--pitch);
+  margin-top: calc(var(--pitch) * 1.1);
+}
+
+.theoryBlock {
+  padding: 18px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+.theoryHeading {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-variation-settings: "wdth" 110;
+  line-height: 1.25;
+}
+
+/* Reading measure matters more here than anywhere else on the site — this is
+   the only place a student reads more than two sentences at a stretch. */
+.theoryBody {
+  max-width: 60ch;
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.62;
+  color: var(--graphite);
+}
+
+.tryBox {
+  margin-top: var(--pitch);
+  padding: 18px 20px;
+  background: var(--vector-soft);
+  border: 1px solid var(--vector);
+  border-radius: var(--radius);
+}
+
+.tryTitle {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--vector);
+}
+
+.tryList {
+  max-width: 72ch;
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--ink);
+}
+
+/* Numerals here are values to dial into the slider, so they get the same
+   tabular treatment as every other number in the interface. */
+.tryList li {
+  margin-bottom: 8px;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.tryList li:last-child {
+  margin-bottom: 0;
+}
+
+/* Below this the canvas plus a 268px control rail leaves the drawing too
+   narrow to read, so the panel drops under it and goes full width. */
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Title and description stop sitting side by side — at this width the
+     description would be squeezed into a very narrow column. */
+  .head {
+    display: block;
+    padding: calc(var(--pitch) * 0.7) 0;
+  }
+
+  .headDesc {
+    max-width: none;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .canvasWrap {
+    min-height: 0;
+    padding: 8px;
+  }
 }

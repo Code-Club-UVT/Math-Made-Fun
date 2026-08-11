@@ -1,29 +1,122 @@
-/* card container (also the link wrapper) */
 .card {
-  display: block;
-  border: 1px solid #e5e4e7;
-  border-radius: 8px;
-  padding: 12px;
-  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 18px;
   color: inherit;
-  background: #fff;
-  transition: box-shadow 0.15s ease;
+  text-decoration: none;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-color: var(--vector);
+  box-shadow: 0 14px 30px -22px rgba(20, 26, 42, 0.55);
 }
 
-/* thumbnail image */
-.thumb {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 4px;
-  background: #f4f3ec;
+/* Not yet buildable — rendered as a div, so it must not offer any of the
+   affordances that say "clickable". */
+.cardPending {
+  border-style: dashed;
+  cursor: default;
+}
+
+.cardPending:hover {
+  transform: none;
+  border-color: var(--rule);
+  box-shadow: none;
+}
+
+.cardPending .art {
+  opacity: 0.55;
+}
+
+.top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* "Matematică · Fizică · Vectori" is long enough to wrap on a narrow card;
+   let it, rather than clipping the subject off the front. */
+.tag {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+/* The badge must never be squeezed by a long subject line beside it. */
+.soon {
+  flex: none;
+}
+
+.tag,
+.soon {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+.soon {
+  padding: 2px 7px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+
+.art {
+  display: grid;
+  place-items: center;
+  min-height: 92px;
+  margin: 12px 0 4px;
+}
+
+.art svg {
+  max-width: 100%;
+  height: auto;
 }
 
 .title {
+  margin-top: 6px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  font-variation-settings: "wdth" 112;
+}
+
+.desc {
+  flex: 1;
   margin: 10px 0 0;
-  font-size: 16px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--graphite);
+}
+
+.foot {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+
+/* The governing law. Mono and inked up, so it reads as the thing the card is
+   actually about rather than as a caption. */
+.formula {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* What the student gets to drive, in words. Quieter than the formula above
+   it — it answers "what do I touch", not "what does this teach". */
+.controls {
+  margin: 5px 0 0;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--graphite);
 }

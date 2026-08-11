@@ -1,16 +1,21 @@
 <!doctype html>
-<html lang="en">
+<!-- Romanian is the default UI language; LangProvider rewrites this attribute
+     when the reader switches to English. -->
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Archivo carries the display voice (expanded width, heavy); IBM Plex Sans
+         is the body face, picked for correct Romanian comma-below ș/ț; IBM Plex
+         Mono sets every number so readouts stay tabular as they tick. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <title>MathMadeFun</title>
+    <title>MathMadeFun — simulări interactive de fizică și matematică</title>
   </head>
   <body>
     <div id="root"></div>

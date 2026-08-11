@@ -58,6 +58,73 @@ export function UnitCircleArt() {
   );
 }
 
+// Triangle with all three interior angles arced — the sum is the whole idea.
+export function TriangleAnglesArt() {
+  return (
+    <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M34,150 L206,150 L138,40 Z" fill="rgba(120,110,255,.1)" stroke="#6b6bff" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M62,150 A28 28 0 0 0 50,128" stroke="#a86bff" strokeWidth="2.5" fill="none" />
+      <path d="M178,150 A28 28 0 0 1 190,131" stroke="#28c840" strokeWidth="2.5" fill="none" />
+      <path d="M124,62 A24 24 0 0 0 152,62" stroke="#ff5f57" strokeWidth="2.5" fill="none" />
+      <circle cx="34" cy="150" r="4.5" fill="#1d1d1f" />
+      <circle cx="206" cy="150" r="4.5" fill="#1d1d1f" />
+      <circle cx="138" cy="40" r="4.5" fill="#1d1d1f" />
+    </svg>
+  );
+}
+
+// Two rays off a shared vertex: the small angle, and the big one containing it.
+export function AdjacentAnglesArt() {
+  return (
+    <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40,150 L214,150" stroke="#1d1d1f" strokeWidth="3" />
+      <path d="M40,150 L186,74" stroke="#1d1d1f" strokeWidth="3" />
+      <path d="M40,150 L64,44" stroke="#1d1d1f" strokeWidth="3" />
+      {/* outer arc: the whole angle */}
+      <path d="M144,150 A104 104 0 0 0 62,48" stroke="#ff5f57" strokeWidth="2.5" fill="none" />
+      {/* inner arc: the part you already know */}
+      <path d="M96,150 A56 56 0 0 0 78,109" fill="rgba(168,107,255,.25)" stroke="#a86bff" strokeWidth="2.5" />
+      <circle cx="40" cy="150" r="5" fill="#1d1d1f" />
+      <circle cx="186" cy="74" r="5.5" fill="#6b6bff" />
+      <circle cx="64" cy="44" r="5.5" fill="#6b6bff" />
+    </svg>
+  );
+}
+
+// Block and tackle: one fixed wheel, one movable, load hanging below.
+export function PulleyArt() {
+  return (
+    <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M46,26 L200,26" stroke="#86868b" strokeWidth="4" />
+      <circle cx="92" cy="48" r="18" fill="rgba(120,110,255,.12)" stroke="#6b6bff" strokeWidth="3" />
+      <circle cx="92" cy="48" r="3.5" fill="#6b6bff" />
+      <circle cx="150" cy="104" r="18" fill="rgba(168,107,255,.14)" stroke="#a86bff" strokeWidth="3" />
+      <circle cx="150" cy="104" r="3.5" fill="#a86bff" />
+      {/* rope: down from the fixed wheel, under the movable one, back up */}
+      <path d="M74,48 L74,140" stroke="#28c840" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M110,48 L132,104" stroke="#28c840" strokeWidth="2.5" />
+      <path d="M168,104 L168,26" stroke="#28c840" strokeWidth="2.5" />
+      <path d="M150,122 L150,138" stroke="#86868b" strokeWidth="2.5" />
+      <rect x="128" y="138" width="44" height="28" rx="5" fill="#6b6bff" />
+    </svg>
+  );
+}
+
+// Pendulum at one extreme, with the swing arc and the rest position dashed.
+export function PendulumArt() {
+  return (
+    <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M76,26 L164,26" stroke="#86868b" strokeWidth="4" />
+      <path d="M120,26 L120,132" stroke="rgba(0,0,0,.18)" strokeWidth="2" strokeDasharray="5 5" />
+      <path d="M120,26 L74,122" stroke="#1d1d1f" strokeWidth="2.5" />
+      <path d="M74,122 A106 106 0 0 0 166,122" stroke="#28c840" strokeWidth="2.5" fill="none" strokeDasharray="6 6" />
+      <path d="M140,26 A20 20 0 0 0 133,40" stroke="#a86bff" strokeWidth="2" fill="none" />
+      <circle cx="120" cy="26" r="4.5" fill="#86868b" />
+      <circle cx="74" cy="122" r="16" fill="#6b6bff" />
+    </svg>
+  );
+}
+
 export function GrapherArt() {
   return (
     <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">

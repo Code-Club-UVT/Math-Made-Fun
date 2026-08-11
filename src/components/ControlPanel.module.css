@@ -1,58 +1,164 @@
 .panel {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border: 1px solid #e5e4e7;
-  border-radius: 8px;
-  padding: 16px;
+  gap: 18px;
+  padding: 18px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
 }
 
 .controlRow {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 7px;
 }
 
 .labelRow {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  font-size: 14px;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--graphite);
 }
 
-.value {
-  color: #6b6b70;
-  font-family: ui-monospace, monospace;
+/* Values are mono so digits hold their column as they tick. Editable, so it
+   carries just enough of a box to invite a click without shouting. */
+.valueInput {
+  width: 5.5ch;
+  padding: 2px 4px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-align: right;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.valueInput:hover {
+  border-color: var(--rule);
+}
+
+.valueInput:focus {
+  outline: none;
+  border-color: var(--vector);
+  background: var(--sheet);
+}
+
+/* The spinner arrows would crowd a 5-character box, and the slider already
+   does the job they would. */
+.valueInput::-webkit-outer-spin-button,
+.valueInput::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.valueInput[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .slider {
   width: 100%;
-}
-
-.toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 10px 12px;
-  font: inherit;
-  font-size: 14px;
-  color: #1d1d1f;
-  background: #f4f4f6;
-  border: 1px solid #e5e4e7;
-  border-radius: 6px;
+  height: 22px;
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
   cursor: pointer;
 }
 
+.slider::-webkit-slider-runnable-track {
+  height: 3px;
+  background: var(--rule);
+  border-radius: 2px;
+}
+
+.slider::-moz-range-track {
+  height: 3px;
+  background: var(--rule);
+  border-radius: 2px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6.5px;
+  background: var(--vector);
+  border: 2px solid var(--sheet);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--vector);
+  transition: transform 0.12s ease;
+}
+
+.slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--vector);
+  border: 2px solid var(--sheet);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--vector);
+}
+
+.slider:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.toggle {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
 .toggle:hover {
-  background: #ebebef;
+  color: var(--vector);
+  border-color: var(--vector);
 }
 
-.toggle:active {
-  background: #e2e2e8;
+/* Paused reads as the exceptional state, so it carries the accent. */
+.toggle[aria-pressed="false"] {
+  color: var(--vector);
+  border-color: var(--vector);
+  background: var(--vector-soft);
 }
 
-.toggle:focus-visible {
-  outline: 2px solid #4361ee;
-  outline-offset: 2px;
+/* A switch is not "paused vs running" — neither state is the exceptional one,
+   so the accent marks *on*, the ordinary way round, overriding the rule above. */
+.switch[aria-pressed="false"] {
+  color: var(--graphite);
+  border-color: var(--rule);
+  background: var(--paper);
+}
+
+.switch[aria-pressed="true"] {
+  color: var(--vector);
+  border-color: var(--vector);
+  background: var(--vector-soft);
+}
+
+/* Matches SimPage's 860px breakpoint, where the panel stops being a narrow
+   side rail and goes full width beneath the canvas. Stacked in one column it
+   would push the canvas well off screen, so the controls flow into however
+   many columns fit. Keyed to the viewport because a CSS module can't reach
+   in from the page, and this panel is only ever used on that page. */
+@media (max-width: 860px) {
+  .panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px 20px;
+    align-items: end;
+  }
 }

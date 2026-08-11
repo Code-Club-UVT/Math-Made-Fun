@@ -1,6 +1,37 @@
+/* Design tokens.
+   The palette is lifted from what the p5 sims already draw with, so the
+   interface reads as an extension of the drawing surface rather than a
+   wrapper around it. Discipline: --vector is the ONLY accent the UI is
+   allowed to use; --force and --motion belong to the canvases. */
 :root {
   color-scheme: light;
-  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+
+  --paper: #e9edf3;
+  --paper-deep: #dde3ec;
+  --sheet: #ffffff;
+
+  --ink: #141a2a;
+  --graphite: #5c6478;
+  --rule: #c9d2e0;
+
+  --vector: #2f4be0;
+  --vector-soft: #e8ecfd;
+  --force: #d93b47;
+  --motion: #0e9384;
+
+  /* The grid pitch. Module spacing is a multiple of this so the layout sits
+     on the same lattice the canvases draw, instead of floating over it. */
+  --pitch: 24px;
+
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius: 10px;
+  --shell: 1120px;
+
+  font-family: var(--font-body);
+  color: var(--ink);
 }
 
 * {
@@ -9,4 +40,57 @@
 
 body {
   margin: 0;
+  background-color: var(--paper);
+  /* The drafting lattice. Kept near-invisible on purpose: it should register
+     as texture underfoot, not as a graph-paper costume. */
+  background-image:
+    linear-gradient(to right, var(--rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
+  background-size: var(--pitch) var(--pitch);
+  background-position: center top;
+  opacity: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hairline lattice is drawn at full strength above; soften it globally so it
+   sits behind content rather than competing with it. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--paper);
+  opacity: 0.72;
+  pointer-events: none;
+  z-index: -1;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 118;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+a {
+  color: var(--vector);
+}
+
+:focus-visible {
+  outline: 2px solid var(--vector);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
