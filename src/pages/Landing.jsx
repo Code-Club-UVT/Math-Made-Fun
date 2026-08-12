@@ -12,7 +12,7 @@ import {
 } from "./landingArt.jsx";
 
 // Visual-only metadata for the 6 preview cards below (decorative mockups,
-// not live sim data — the real gallery is Dashboard.jsx / src/sims/*)
+// not live sim data — the real gallery is SimsPage.jsx / src/sims/*)
 const CARD_META = [
   { Art: VectorsArt, canvasBg: "linear-gradient(135deg,#eef0ff,#f6efff)", window: "vectors.sim", fills: ["62%", "30%"] },
   { Art: ProjectileArt, canvasBg: "linear-gradient(135deg,#eef4ff,#eef0ff)", window: "projectile.sim", fills: ["70%", "61%"] },
@@ -64,13 +64,12 @@ export default function Landing() {
 
       {/* top nav bar: logo, section links, language toggle, sign in */}
       <header className={styles.header}>
-        <Link to="/dashboard" className={styles.logo}>
+        <Link to="/sims" className={styles.logo}>
           <span className={styles.logoMark}>∑</span>
-          MathMadeFun 
-          {/* link to dashboard */}
+          MathMadeFun
         </Link>
         <nav className={styles.nav}>
-          <Link to="/dashboard" className={styles.navLink}>
+          <Link to="/sims" className={styles.navLink}>
             {t.navSims}
           </Link>
           <a href="#sims" className={styles.navLink}>
@@ -101,7 +100,7 @@ export default function Landing() {
         <p className={styles.lead}>{t.heroLead}</p>
         <p className={styles.sub}>{t.heroSub}</p>
         <div className={styles.ctaRow}>
-          <Link to="/dashboard" className={styles.ctaPrimary}>
+          <Link to="/sims" className={styles.ctaPrimary}>
             {t.ctaPrimary}
             <span>→</span>
           </Link>

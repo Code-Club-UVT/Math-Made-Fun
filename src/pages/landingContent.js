@@ -12,7 +12,7 @@ export const LANDING_CONTENT = {
       "A hands-on playground of physics and math simulations that turns abstract concepts into something you can actually touch, tweak, and understand.",
     ctaPrimary: "Explore Simulations",
     ctaSecondary: "Watch a demo",
-    heroNote: "some simulations · aligned to the RO middle & high-school curriculum", //need to update this when we have the final set of sims
+    heroNote: "N simulations · aligned to the RO middle & high-school curriculum", //need to update this when we have the final set of sims
     libEyebrow: "The simulation library",
     libTitle: "Every card is a live experiment",
     libSub: "Open any window, grab the controls, and the visualization responds instantly.",
