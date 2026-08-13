@@ -22,9 +22,9 @@ One task at a time — stop and check off before moving on.
       on unmount
 - [x] W2-3 (CS) `ControlPanel.jsx` — builds sliders from `controls` array,
       calls `sim.update(values)` on change
-- [x] W2-4 (CS) Integrate `vectors` sim once math student delivers it —
-      `src/sims/vectors.js` exists and loads via `/sims/vectors`
-- [x] (Math) Build `vectors` — p5 instance mode, exports contract from CLAUDE.md
+- [ ] W2-4 (CS) Integrate `vectors` sim once math student delivers it — blocked,
+      `src/sims/` is still empty
+- [ ] (Math) Build `vectors` — p5 instance mode, exports contract from CLAUDE.md
 - [ ] (Math) Drop `public/assets/thumbs/vectors.png` — screenshot of the
       running sim at good default control values (see thumbnail workflow
       below); replaces the placeholder SVG, no code changes needed
