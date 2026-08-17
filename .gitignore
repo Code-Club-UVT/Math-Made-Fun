@@ -4,4 +4,4 @@ dist/
 *.log
 CLAUDE.local.md
 RUNNING.local.md
-
+.agents

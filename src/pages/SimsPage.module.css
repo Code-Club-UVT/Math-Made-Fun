@@ -1,25 +1,124 @@
-/* page container */
+/* Top padding is 0 so the shared header sits at the same height as it does on
+   the landing page — the strip should not appear to shift between routes. */
 .page {
-  max-width: 960px;
+  max-width: var(--shell);
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 0 var(--pitch) calc(var(--pitch) * 4);
 }
 
-.back {
-  display: inline-block;
-  margin-bottom: 16px;
-  color: #1d1d1f;
-  text-decoration: none;
-  font-size: 14px;
+.head {
+  padding: calc(var(--pitch) * 1.2) 0 calc(var(--pitch) * 1.4);
+  border-bottom: 1px solid var(--rule);
 }
 
-.back:hover {
-  text-decoration: underline;
+.eyebrow {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--vector);
 }
 
-/* sim card grid */
+.title {
+  font-size: clamp(2.1rem, 4.4vw, 3rem);
+  font-weight: 800;
+  font-variation-settings: "wdth" 122;
+  letter-spacing: -0.03em;
+}
+
+.sub {
+  max-width: 48ch;
+  margin: 14px 0 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--graphite);
+}
+
+/* ---------- subject filter ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--pitch);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  color: var(--graphite);
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.chip:hover {
+  color: var(--vector);
+  border-color: var(--vector);
+}
+
+.chipOn {
+  color: var(--vector);
+  border-color: var(--vector);
+  background: var(--vector-soft);
+}
+
+/* How many sims sit behind each chip — worth knowing before you click. */
+.chipCount {
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+.empty {
+  margin-top: calc(var(--pitch) * 1.5);
+  font-size: 0.95rem;
+  color: var(--graphite);
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: var(--pitch);
+  margin-top: calc(var(--pitch) * 1.2);
+}
+
+/* At 768 the shell is narrower than two 258px cards plus the gutter would
+   comfortably fill, so ease the track minimum down rather than dropping
+   straight to one column and leaving a lot of empty measure. */
+@media (max-width: 768px) {
+  .page {
+    padding-bottom: calc(var(--pitch) * 3);
+  }
+
+  .head {
+    padding: var(--pitch) 0 calc(var(--pitch) * 1.1);
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-top: calc(var(--pitch) * 1.2);
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Below this a two-up grid squeezes the description to a few words a line;
+     one full-width card per row reads far better. */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }

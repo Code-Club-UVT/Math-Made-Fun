@@ -1,0 +1,83 @@
+/* Site identity strip. Lifted out of Landing.module.css when the header
+   became shared — these rules are unchanged from that original, so the
+   landing page looks identical, the sim pages simply gained it. */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: calc(var(--pitch) * 0.9) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.logoMark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--vector);
+  border-radius: 6px;
+  color: var(--vector);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.navLink {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: var(--vector);
+}
+
+.langBtn {
+  padding: 5px 11px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--graphite);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.langBtn:hover {
+  color: var(--vector);
+  border-color: var(--vector);
+}
+
+@media (max-width: 560px) {
+  .nav {
+    gap: 14px;
+  }
+
+  .navLink {
+    font-size: 0.72rem;
+  }
+}
