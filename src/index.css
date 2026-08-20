@@ -7,7 +7,6 @@
   color-scheme: light;
 
   --paper: #e9edf3;
-  --paper-deep: #dde3ec;
   --sheet: #ffffff;
 
   --ink: #141a2a;
@@ -48,7 +47,6 @@ body {
     linear-gradient(to bottom, var(--rule) 1px, transparent 1px);
   background-size: var(--pitch) var(--pitch);
   background-position: center top;
-  opacity: 1;
   -webkit-font-smoothing: antialiased;
 }
 
