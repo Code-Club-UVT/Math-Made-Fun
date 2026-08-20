@@ -16,11 +16,10 @@ const simModules = import.meta.glob("../sims/*.js");
 function simReducer(state, action) {
   switch (action.type) {
     case "loading":
-      return { status: "loading", sim: null, controlValues: {} };
+    case "error":
+      return { status: action.type, sim: null, controlValues: {} };
     case "ready":
       return { status: "ready", sim: action.sim, controlValues: action.controlValues };
-    case "error":
-      return { status: "error", sim: null, controlValues: {} };
     case "control":
       return {
         ...state,
@@ -50,10 +49,9 @@ export default function SimPage() {
 
     const loader = simModules[`../sims/${id}.js`];
     if (!loader) {
+      // No promise was started, so there is nothing to cancel or tear down.
       dispatch({ type: "error" });
-      return () => {
-        cancelled = true;
-      };
+      return;
     }
 
     loader()
@@ -142,7 +140,7 @@ export default function SimPage() {
           )}
         </div>
 
-        {state.status === "ready" && state.sim && state.sim.controls.length > 0 && (
+        {state.status === "ready" && state.sim.controls.length > 0 && (
           <ControlPanel
             simId={id}
             controls={state.sim.controls}

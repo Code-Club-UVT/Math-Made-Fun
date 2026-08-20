@@ -13,7 +13,7 @@ is only the checklist.
 ## Open now
 
 ### Blocking the demo
-- [ ] **Look at the whole app in a browser** at 1280 / 768 / 390 px. Everything
+- [x] **Look at the whole app in a browser** at 1280 / 768 / 390 px. Everything
       below is verified by lint, build, numeric checks and route smoke tests —
       but nothing has actually been *seen*. This is the biggest single gap.
 - [ ] W5-1 Responsive pass. Breakpoints are written (880/768/560 Landing,

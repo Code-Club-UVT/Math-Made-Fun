@@ -4,10 +4,20 @@ import SiteHeader from "../components/SiteHeader.jsx";
 import { SIM_CATALOG, CATEGORY_IDS } from "../simCatalog.js";
 import { CONTENT } from "../content.js";
 import { useLang } from "../langContext.js";
-import { SIM_ART } from "./simArt.js";
 import styles from "./SimsPage.module.css";
 
 const ALL = "all";
+
+// One definition of "this sim belongs to this chip", so the grid and the
+// counts can't disagree.
+const inSubject = (sim, key) => key === ALL || sim.categories?.includes(key);
+
+// The catalogue is static, so the chip counts are too — no reason to re-filter
+// it on every render.
+const CHIP_KEYS = [ALL, ...CATEGORY_IDS];
+const CHIP_COUNTS = Object.fromEntries(
+  CHIP_KEYS.map((key) => [key, SIM_CATALOG.filter((sim) => inSubject(sim, key)).length])
+);
 
 export default function SimsPage() {
   const { lang } = useLang();
@@ -18,10 +28,7 @@ export default function SimsPage() {
   // sections would either duplicate its card or force an arbitrary "primary"
   // choice. With a filter it simply appears under both.
   const [subject, setSubject] = useState(ALL);
-  const shown =
-    subject === ALL
-      ? SIM_CATALOG
-      : SIM_CATALOG.filter((sim) => sim.categories?.includes(subject));
+  const shown = SIM_CATALOG.filter((sim) => inSubject(sim, subject));
 
   return (
     <div className={styles.page}>
@@ -34,7 +41,7 @@ export default function SimsPage() {
       </header>
 
       <div className={styles.filters} role="group" aria-label={t.filterLabel}>
-        {[ALL, ...CATEGORY_IDS].map((key) => {
+        {CHIP_KEYS.map((key) => {
           const active = subject === key;
           return (
             <button
@@ -45,11 +52,7 @@ export default function SimsPage() {
               className={`${styles.chip} ${active ? styles.chipOn : ""}`}
             >
               {key === ALL ? t.filterAll : c.categories[key]}
-              <span className={styles.chipCount}>
-                {key === ALL
-                  ? SIM_CATALOG.length
-                  : SIM_CATALOG.filter((s) => s.categories?.includes(key)).length}
-              </span>
+              <span className={styles.chipCount}>{CHIP_COUNTS[key]}</span>
             </button>
           );
         })}
@@ -59,24 +62,9 @@ export default function SimsPage() {
         <p className={styles.empty}>{t.empty}</p>
       ) : (
         <div className={styles.grid}>
-          {shown.map((sim) => {
-            const copy = sim[lang];
-            return (
-              <SimCard
-                key={sim.id}
-                id={sim.id}
-                tag={copy.tag}
-                title={copy.title}
-                desc={copy.desc}
-                formula={copy.formula}
-                controls={copy.controls}
-                categories={(sim.categories ?? []).map((k) => c.categories[k])}
-                ready={sim.ready !== false}
-                Art={SIM_ART[sim.id]}
-                soonLabel={c.soon}
-              />
-            );
-          })}
+          {shown.map((sim) => (
+            <SimCard key={sim.id} sim={sim} />
+          ))}
         </div>
       )}
     </div>

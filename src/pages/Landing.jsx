@@ -6,11 +6,11 @@ import { useLang } from "../langContext.js";
 import { SIM_CATALOG } from "../simCatalog.js";
 import SimCard from "../components/SimCard.jsx";
 import SiteHeader from "../components/SiteHeader.jsx";
-import { SIM_ART } from "./simArt.js";
 
 // Fixed for the hero demo so a single slider tells the whole story; the full
 // control set lives on /sims/projectile.
 const DEMO_SPEED = 22;
+const DEMO_ANGLE = 55;
 const G = 9.81;
 
 // Range for a launch from ground level. Mirrors solve() in sims/projectile.js,
@@ -19,12 +19,21 @@ function demoRange(angle) {
   return (DEMO_SPEED ** 2 * Math.sin((2 * angle * Math.PI) / 180)) / G;
 }
 
+// Built once — a live MediaQueryList keeps tracking the OS setting, so there
+// is nothing to gain from re-querying it on every slider event.
+const reducedMotionQuery =
+  typeof window !== "undefined" && typeof window.matchMedia === "function"
+    ? window.matchMedia("(prefers-reduced-motion: reduce)")
+    : null;
+
 function prefersReducedMotion() {
-  return (
-    typeof window !== "undefined" &&
-    typeof window.matchMedia === "function" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  return reducedMotionQuery?.matches ?? false;
+}
+
+// The three fixed demo parameters plus the one the slider drives. Written once
+// so first paint and every later drag can't disagree about the other three.
+function demoParams(angle) {
+  return { playing: !prefersReducedMotion(), speed: DEMO_SPEED, angle, height: 0 };
 }
 
 function Reveal({ className = "", children }) {
@@ -60,9 +69,7 @@ function Reveal({ className = "", children }) {
 function HeroDemo({ t }) {
   const canvasRef = useRef(null);
   const simRef = useRef(null);
-  const [angle, setAngle] = useState(55);
-  const angleRef = useRef(angle);
-  angleRef.current = angle;
+  const [angle, setAngle] = useState(DEMO_ANGLE);
 
   useEffect(() => {
     let cancelled = false;
@@ -72,12 +79,8 @@ function HeroDemo({ t }) {
       if (cancelled || !node) return;
       const sim = mod.default;
       try {
-        sim.init(node, {
-          playing: !prefersReducedMotion(),
-          speed: DEMO_SPEED,
-          angle: angleRef.current,
-          height: 0,
-        });
+        // Mount-only effect, so the angle here is still the initial one.
+        sim.init(node, demoParams(DEMO_ANGLE));
         simRef.current = sim;
       } catch {
         // A broken sim must not take the marketing page down with it.
@@ -98,12 +101,7 @@ function HeroDemo({ t }) {
   function handleAngle(next) {
     setAngle(next);
     try {
-      simRef.current?.update({
-        playing: !prefersReducedMotion(),
-        speed: DEMO_SPEED,
-        angle: next,
-        height: 0,
-      });
+      simRef.current?.update(demoParams(next));
     } catch {
       /* ignore — the slider should stay usable regardless */
     }
@@ -191,25 +189,11 @@ export default function Landing() {
         </Reveal>
 
         <div className={styles.cards}>
-          {SIM_CATALOG.map((sim) => {
-            const copy = sim[lang];
-            return (
-              <Reveal key={sim.id} className={styles.cardWrap}>
-                <SimCard
-                  id={sim.id}
-                  tag={copy.tag}
-                  title={copy.title}
-                  desc={copy.desc}
-                  formula={copy.formula}
-                  controls={copy.controls}
-                  categories={(sim.categories ?? []).map((k) => c.categories[k])}
-                  ready={sim.ready !== false}
-                  Art={SIM_ART[sim.id]}
-                  soonLabel={c.soon}
-                />
-              </Reveal>
-            );
-          })}
+          {SIM_CATALOG.map((sim) => (
+            <Reveal key={sim.id} className={styles.cardWrap}>
+              <SimCard sim={sim} />
+            </Reveal>
+          ))}
         </div>
       </section>
     </div>

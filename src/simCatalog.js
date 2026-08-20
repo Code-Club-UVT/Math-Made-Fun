@@ -98,8 +98,6 @@ export const SIM_CATALOG = [
     },
   },
 
-  // --- not built yet: cards show, but don't link anywhere ---
-
   {
     id: "triangle-angles",
     categories: ["math"],

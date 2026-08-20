@@ -124,37 +124,3 @@ export function PendulumArt() {
     </svg>
   );
 }
-
-export function GrapherArt() {
-  return (
-    <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="20" y1="90" x2="220" y2="90" stroke="rgba(0,0,0,.12)" strokeWidth="2" />
-      <line x1="120" y1="20" x2="120" y2="160" stroke="rgba(0,0,0,.12)" strokeWidth="2" />
-      <path d="M24,150 C70,40 110,150 160,50 C185,0 205,60 216,34" stroke="#6b6bff" strokeWidth="4" fill="none" strokeLinecap="round" />
-      <path d="M24,120 Q120,-30 216,120" stroke="#a86bff" strokeWidth="3" fill="none" strokeDasharray="6 5" />
-    </svg>
-  );
-}
-
-const PROBABILITY_BARS = [40, 78, 116, 60, 30];
-
-export function ProbabilityArt() {
-  return (
-    <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="24" y1="160" x2="220" y2="160" stroke="rgba(0,0,0,.15)" strokeWidth="2" />
-      {PROBABILITY_BARS.map((h, i) => (
-        <rect
-          key={i}
-          x={34 + i * 38}
-          y={160 - h}
-          width="26"
-          height={h}
-          rx="5"
-          fill={i === 2 ? "#a86bff" : "#6b6bff"}
-          opacity={i === 2 ? 1 : 0.55}
-        />
-      ))}
-      <path d="M34,120 Q120,10 206,120" stroke="#28c840" strokeWidth="3" fill="none" strokeDasharray="5 5" />
-    </svg>
-  );
-}

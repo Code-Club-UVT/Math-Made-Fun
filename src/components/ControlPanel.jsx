@@ -85,15 +85,13 @@ function RangeControl({ control, label, value, onChange }) {
 function ToggleControl({ control, label, value, onChange, t }) {
   const isSwitch = control.kind === "switch";
 
-  let text;
-  if (isSwitch) {
-    // Falls back to the single label for both states when no translation
-    // exists yet — wrong-ish, but never nonsense.
-    text = typeof label === "object" ? (value ? label.on : label.off) : label;
-  } else {
-    const name = typeof label === "object" ? label.on : label;
-    text = value ? t.pause(name) : t.play(name);
-  }
+  // Normalise the dual-typed label once. A plain string stands in for both
+  // states when no `{ on, off }` translation exists yet — wrong-ish, but
+  // never nonsense.
+  const on = typeof label === "object" ? label.on : label;
+  const off = typeof label === "object" ? label.off : label;
+
+  const text = isSwitch ? (value ? on : off) : value ? t.pause(on) : t.play(on);
 
   return (
     <button

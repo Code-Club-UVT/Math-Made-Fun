@@ -5,3 +5,6 @@ dist/
 CLAUDE.local.md
 RUNNING.local.md
 .agents
+TASKS.md
+CLAUDE.md
+\docs
